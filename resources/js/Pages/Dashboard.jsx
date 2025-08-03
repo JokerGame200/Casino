@@ -2,7 +2,7 @@ import React from "react";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard() {
+export default function Dashboard({ isEmailVerified }) {
     return (
         <AuthenticatedLayout
             header={
@@ -12,7 +12,13 @@ export default function Dashboard() {
             }
         >
             <Head title="Dashboard" />
-
+            <div>
+            <h1>Dashboard</h1>
+            {isEmailVerified ? (
+                <div className="alert alert-success">E-Mail verifiziert ✅</div>
+            ) : (
+                <div className="alert alert-warning">E-Mail noch nicht verifiziert ❌</div>
+            )}
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
@@ -21,6 +27,7 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </AuthenticatedLayout>
     );
