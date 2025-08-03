@@ -48,6 +48,14 @@ class LoginRequest extends FormRequest
                 'email' => trans('auth.failed'),
             ]);
         }
+        
+        if (Auth::user() && Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !Auth::user()->hasVerifiedEmail()) {
+            Auth::logout();
+            dd('hier!');
+            throw ValidationException::withMessages([
+                'email' => 'Du musst deine E-Mail-Adresse erst bestätigen. Wir haben dir einen Link an '.Auth::user()->email.' geschickt.'
+            ]);
+        }
 
         RateLimiter::clear($this->throttleKey());
     }

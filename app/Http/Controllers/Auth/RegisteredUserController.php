@@ -43,9 +43,12 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
+        $user->sendEmailVerificationNotification();
+        \Log::info('Registered-Event wurde ausgelöst für: ' . $user->email);
+        
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('verification.notice');
+
     }
 }
