@@ -28,4 +28,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // weitere Routen...
 });
 
+Route::get('/Terms&Conditions', function () {
+    return Inertia::render('RAI/AGB'); // entspricht resources/js/Pages/RAI/AGB.jsx
+})->name('AGB');
+
 require __DIR__.'/auth.php';
