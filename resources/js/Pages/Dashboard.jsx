@@ -13,13 +13,17 @@ import { Link } from "@inertiajs/react";
 export default function Dashboard({ auth = null, games = [], categories = [] }) {
   // Theme-CSS einhängen (einmalig)
   useEffect(() => {
-    const id = "nx2-gold-theme-v44";
-    if (!document.getElementById(id)) {
-      const style = document.createElement("style");
-      style.id = id;
-      style.innerHTML = THEME_CSS;
-      document.head.appendChild(style);
+    const id = "nx2-theme-global";                   // gemeinsamer Name
+    let tag = document.getElementById(id);
+    if (!tag) {
+      tag = document.createElement("style");
+      tag.id = id;
+      document.head.appendChild(tag);
     }
+    // wichtig: immer überschreiben, damit es keine "Übernahme" vom vorherigen Screen gibt
+    if (tag.innerHTML !== THEME_CSS) tag.innerHTML = THEME_CSS;
+    // optional: Seitentitel
+    try { document.title = "AGB"; } catch {}
   }, []);
 
   const username = auth?.user?.name || null;
@@ -215,7 +219,7 @@ export default function Dashboard({ auth = null, games = [], categories = [] }) 
                 <p>Spiele verantwortungsbewusst. 18+ | AGB gelten.</p>
               </div>
               <div className="nx2-footer-links">
-                <Link href={routeSafe("AGB", "/Terms&Conditions")}>AGB</Link>
+                <Link href={routeSafe("AGB", "/Terms&Conditions")}preserveScroll={false}>AGB</Link>
                 <a href={routeSafe("page.privacy", "#")}>Datenschutz</a>
                 <a href={routeSafe("page.faq", "#")}>FAQ</a>
                 <a href={routeSafe("page.responsible", "#")}>Safer Gambling</a>
@@ -539,4 +543,28 @@ body{
 .nx2-bottom-nav a{height:50px; display:grid; place-items:center; color:var(--text-dim); text-decoration:none; font-weight:700}
 .nx2-bottom-nav a.active, .nx2-bottom-nav a:hover{color:var(--gold-soft)}
 .nx2-dot{width:6px; height:6px; border-radius:999px; background:currentColor; display:inline-block; margin-right:6px}
+
+/* nur Body scrollt (kein Doppel-Scroll) */
+html, body { margin:0; padding:0; overflow-x:hidden; overflow-y:auto; }
+#app{
+  display:block !important;
+  height:auto !important;
+  min-height:0 !important;
+  overflow:visible !important;
+}
+
+/* Vollbreite für alle Screens */
+.nx2-page{
+  width:100%;
+  max-width:none !important;     /* erzwingt Vollbreite */
+  margin:0 auto;
+  padding:0 clamp(8px,2vw,20px);
+}
+
+/* Sticky-Footer-Layout */
+.nx2-app{ min-height:100svh; display:flex; flex-direction:column; }
+.nx2-main{ flex:1 1 auto; display:flex; flex-direction:column; min-height:0; }
+.nx2-footer{ margin-top:auto; }
+
+
 `;

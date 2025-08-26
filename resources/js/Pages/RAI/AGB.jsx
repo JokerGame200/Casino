@@ -116,7 +116,7 @@ export default function AGB({ auth = null }) {
                 <p>Play responsibly. 18+ | Terms and conditions apply.</p>
               </div>
               <div className="nx2-footer-links">
-                <a href={routeSafe("agb", "/agb")}>Terms and Conditions</a>
+                <a href={routeSafe("agb", "/Terms&Conditions")}>Terms and Conditions</a>
                 <a href={routeSafe("page.privacy", "#")}>Privacy policy</a>
                 <a href={routeSafe("page.faq", "#")}>FAQ</a>
                 <a href={routeSafe("page.responsible", "#")}>Safer Gambling</a>
