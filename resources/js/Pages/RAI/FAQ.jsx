@@ -1,41 +1,58 @@
-import React, {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useLayoutEffect,
-  useId,
-} from "react";
-import agbRaw from "./AGB.txt?raw";
+import React, { useEffect, useRef, useState, useLayoutEffect, useId } from "react";
 
 /**
- * AGB.jsx – polished
- * - Single scroll (nur Body), Sticky footer
- * - Robust Accordion (ResizeObserver, auto-height)
- * - A11y: ARIA + Keyboard (↑ ↓ Home End, Enter/Space)
- * - Mobile header fixes (iPhone SE)
- * - No FOUC: inline <style> + head fallback
+ * Next2Win — FAQ.jsx
+ * - Compact Q&A with collapsible answers (Accordion)
+ * - Short answers, many questions
+ * - Same gold/black theme + header/footer as other pages
  */
 
-export default function AGB({ auth = null }) {
-  
+export default function FAQ({ auth = null }) {
+  // Theme einmal injizieren + Titel setzen
   useEffect(() => {
-    // wenn kein Hash übergeben wurde, trotzdem sicherheitshalber TOP
+    const id = "nx2-gold-theme-v44";
+    if (!document.getElementById(id)) {
+      const styleTag = document.createElement("style");
+      styleTag.id = id;
+      styleTag.innerHTML = THEME_CSS;
+      document.head.appendChild(styleTag);
+    }
+    try { document.title = "FAQ"; } catch {}
     if (!location.hash) {
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }))
-      );
+      requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" })));
     }
   }, []);
 
   const username = auth?.user?.name || null;
-  const balance = auth?.user?.balance ?? 0;
+  const balance  = auth?.user?.balance ?? 0;
 
-  const sections = useMemo(() => parseByNumbers(agbRaw), []);
+  const faqs = [
+    { q: "How do I create an account?", a: "Click Register, fill in your details, confirm your email, and you’re good to go." },
+    { q: "Do I need to verify my identity (KYC)?", a: "Yes, we may ask for KYC before withdrawals to keep accounts safe and compliant." },
+    { q: "Which deposit methods are available?", a: "Cards, e-wallets, bank transfer, and selected cryptocurrencies (availability depends on region)." },
+    { q: "What’s the minimum deposit?", a: "Typically €10–€20, depending on your chosen payment method." },
+    { q: "How do I request a withdrawal?", a: "Open Wallet → Withdraw, pick your method, enter the amount, and submit." },
+    { q: "How long do withdrawals take?", a: "We aim to process quickly; e-wallets are fastest, banks/cards may take a few business days." },
+    { q: "Is there a minimum withdrawal?", a: "Yes, a small minimum applies (e.g., €25); limits can vary by method." },
+    { q: "Are there withdrawal fees?", a: "Most methods are fee-free on our side; your provider may charge its own fees." },
+    { q: "Do you offer a welcome bonus?", a: "Yes. Check Promotions for current offers and full terms." },
+    { q: "What about wagering requirements?", a: "Bonuses usually require wagering before cashout—see each bonus’s rules for details." },
+    { q: "Do all games contribute to wagering?", a: "No. Slots usually contribute more than table or live games—see bonus terms." },
+    { q: "Can I cancel an active bonus?", a: "Yes, but bonus funds and related winnings will be removed when cancelled." },
+    { q: "How can I set deposit or loss limits?", a: "Go to Responsible Gaming in your account to set daily, weekly, or monthly limits." },
+    { q: "Can I self-exclude?", a: "Yes. Choose a time-out or self-exclusion period to block access during that time." },
+    { q: "Is Next2Win mobile friendly?", a: "Absolutely. Use your device’s browser—no app required." },
+    { q: "Which currencies are supported?", a: "EUR is standard; other options may be available depending on region and payment method." },
+    { q: "Are games fair and random?", a: "Yes. Games use certified RNGs and are provided by reputable studios." },
+    { q: "What happens if my game disconnects?", a: "Your round result is preserved by the provider. Reopen the game to continue." },
+    { q: "Can I have more than one account?", a: "No. Multiple accounts are not allowed and may be closed." },
+    { q: "How do I change my personal details?", a: "Update them in Profile; support may request documents for certain changes." },
+    { q: "How do I close my account?", a: "Contact support or use Responsible Gaming to request closure or long self-exclusion." },
+    { q: "How can I contact support?", a: "Use live chat on the site or email our help team; we’re here 24/7." },
+  ];
 
   return (
     <div className="nx2-app">
-      {/* sofort laden: verhindert FOUC */}
       <style id="nx2-gold-theme-v44">{THEME_CSS}</style>
 
       <div className="nx2-page">
@@ -56,52 +73,42 @@ export default function AGB({ auth = null }) {
               </nav>
 
               <div className="nx2-actions">
-                <div className="nx2-balance-pill" title="Gesamtguthaben">
-                  <svg aria-hidden viewBox="0 0 24 24" className="nx2-coin">
-                    <circle cx="12" cy="12" r="10" />
-                  </svg>
+                <div className="nx2-balance-pill" title="Total Balance">
+                  <svg aria-hidden viewBox="0 0 24 24" className="nx2-coin"><circle cx="12" cy="12" r="10" /></svg>
                   <span className="nx2-balance">{formatCurrency(balance)} EUR</span>
                 </div>
 
-                <a className="nx2-btn nx2-btn-gold" href={routeSafe("wallet.deposit", "#")}>
-                  Deposit
-                </a>
-
                 {username ? (
-                  <div className="nx2-avatar" title={username} aria-label={username}>
-                    {username.slice(0, 1).toUpperCase()}
-                  </div>
+                  <>
+                    <a className="nx2-btn nx2-btn-gold" href={routeSafe("wallet.deposit", "#")}>Deposit</a>
+                    <div className="nx2-avatar" title={username} aria-label={username}>
+                      {username.slice(0, 1).toUpperCase()}
+                    </div>
+                  </>
                 ) : (
-                  <div className="nx2-avatar" title="Profil" aria-label="Profil">
-                    <IconUser />
-                  </div>
+                  <>
+                    <a className="nx2-btn nx2-btn-ghost" href={routeSafe("login", "/login")}>Login</a>
+                    <a className="nx2-btn nx2-btn-gold" href={routeSafe("register", "/register")}>Register</a>
+                  </>
                 )}
               </div>
             </div>
           </header>
-          <span id="agb-top" />
-          {/* ===== PAGE TITLE ===== */}
+
+          {/* ===== TITLE ===== */}
           <section className="nx2-page-title">
-            <h1 className="nx2-title-h1">Terms and Conditions</h1>
+            <h1 className="nx2-title-h1">Frequently Asked Questions</h1>
           </section>
 
-          {/* ===== DOKUMENT ===== */}
+          {/* ===== FAQ (Accordion) ===== */}
           <article className="nx2-doc" onKeyDown={handleListKeyDown}>
-            {sections.map((sec, i) => (
-              <Accordion key={i} title={sec.title} defaultOpen={false}>
-                {sec.blocks.map((b, j) => {
-                  if (b.type === "subhead") return <h3 key={j} className="nx2-h3">{b.text}</h3>;
-                  if (b.type === "ul") {
-                    return (
-                      <ul key={j} className="nx2-ul">
-                        {b.items.map((li, k) => <li key={k}>{renderInline(li)}</li>)}
-                      </ul>
-                    );
-                  }
-                  return <p key={j}>{renderInline(b.text)}</p>;
-                })}
-              </Accordion>
-            ))}
+            <div className="nx2-faq">
+              {faqs.map((item, i) => (
+                <Accordion key={i} title={item.q}>
+                  <p>{item.a}</p>
+                </Accordion>
+              ))}
+            </div>
           </article>
 
           {/* ===== FOOTER ===== */}
@@ -127,7 +134,7 @@ export default function AGB({ auth = null }) {
   );
 }
 
-/* ========== Accordion (a11y + ResizeObserver + auto-height) ========== */
+/* ========== Accordion (accessible + smooth) ========== */
 function Accordion({ title, defaultOpen = false, children }) {
   const [open, setOpen] = useState(defaultOpen);
   const bodyRef = useRef(null);
@@ -136,14 +143,12 @@ function Accordion({ title, defaultOpen = false, children }) {
   const btnId = `btn_${panelId}`;
   const prefersReduced = usePrefersReducedMotion();
 
-  // Erstes Layout
   useLayoutEffect(() => {
     const el = bodyRef.current;
     if (!el) return;
     setHeight(open ? `${el.scrollHeight}px` : "0px");
   }, [open, children]);
 
-  // TransitionEnd -> bei "auf" auf auto setzen
   useEffect(() => {
     const el = bodyRef.current;
     if (!el) return;
@@ -155,27 +160,7 @@ function Accordion({ title, defaultOpen = false, children }) {
     return () => el.removeEventListener("transitionend", onEnd);
   }, [open]);
 
-  // ResizeObserver: Inhalt ändert sich (Schriften, Wrap, Bilder) -> nachmessen
-  useEffect(() => {
-    const el = bodyRef.current;
-    if (!el) return;
-    if (typeof ResizeObserver === "undefined") return;
-
-    const ro = new ResizeObserver(() => {
-      if (!open) return;
-      if (height === "auto") {
-        // kurz Pixel -> auto, damit zukünftige Togglen wieder animieren
-        setHeight(`${el.scrollHeight}px`);
-        requestAnimationFrame(() => setHeight("auto"));
-      } else {
-        setHeight(`${el.scrollHeight}px`);
-      }
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [open, height]);
-
-  const handleToggle = () => {
+  const toggle = () => {
     const el = bodyRef.current;
     if (!el) return;
     if (open) {
@@ -188,14 +173,14 @@ function Accordion({ title, defaultOpen = false, children }) {
       setOpen(false);
     } else {
       setOpen(true);
-      // Höhe setzt useLayoutEffect
+      // height will be set by layout effect
     }
   };
 
-  const onButtonKeyDown = (e) => {
+  const onKeyDown = (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      handleToggle();
+      toggle();
     }
   };
 
@@ -207,33 +192,30 @@ function Accordion({ title, defaultOpen = false, children }) {
         role="button"
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={handleToggle}
-        onKeyDown={onButtonKeyDown}
+        onClick={toggle}
+        onKeyDown={onKeyDown}
         data-acc-toggle
       >
-        <span className="nx2-headline">{renderHeadingInline(title)}</span>
-        <svg className="nx2-acc-caret" viewBox="0 0 24 24" aria-hidden>
-          <path d="M7 10l5 5 5-5" />
-        </svg>
+        <span className="nx2-headline">{title}</span>
+        <svg className="nx2-acc-caret" viewBox="0 0 24 24" aria-hidden><path d="M7 10l5 5 5-5" /></svg>
       </button>
 
       <div
         id={panelId}
         className="nx2-acc-body"
         ref={bodyRef}
-        style={{
-          maxHeight: height,
-          transition: prefersReduced ? "none" : "max-height .28s ease",
-        }}
+        style={{ maxHeight: height, transition: prefersReduced ? "none" : "max-height .28s ease" }}
         aria-labelledby={btnId}
       >
-        <div className="nx2-acc-content">{children}</div>
+        <div className="nx2-acc-content">
+          {children}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ========== Keyboard Navigation (↑ ↓ Home End) ========== */
+/* Keyboard nav between accordion headers (↑ ↓ Home End) */
 function handleListKeyDown(e) {
   const isHeader = e.target && e.target.matches?.(".nx2-acc-head");
   if (!isHeader) return;
@@ -257,108 +239,6 @@ function handleListKeyDown(e) {
   }
 }
 
-/* ========== Parser ==========
-   Top-Level = ^\d+ … (z. B. "1. Title")
-   Sub-Level = ^\d+\.\d+ … (z. B. "1.1 Subtitle") */
-function parseByNumbers(raw) {
-  const text = String(raw ?? "").replace(/\r\n/g, "\n");
-  const lines = text.split("\n");
-
-  const topRe = /^\s*(\d+)(?:[.)-])?\s+(.*\S)\s*$/;          // 1 Title / 1. Title / 1) Title
-  const subRe = /^\s*(\d+)\.(\d+)(?:[.)-])?\s+(.*\S)\s*$/;   // 1.1 Subtitle / 2.3) Subtitle
-
-  const sections = [];
-  let current = null;
-  let list = null;
-  const buf = [];
-
-  const flushBuf = () => {
-    if (!buf.length) return;
-    const txt = buf.join(" ").trim();
-    if (txt) current.blocks.push({ type: "p", text: txt });
-    buf.length = 0;
-  };
-
-  for (let rawLine of lines) {
-    const line = rawLine.replace(/\t/g, " ").trim();
-
-    if (!line) { flushBuf(); list = null; continue; }
-
-    // Sub-Heading zuerst prüfen (damit 1.1 nicht als 1. greift)
-    let m = line.match(subRe);
-    if (m) {
-      if (!current) { current = { title: `${m[1]}`, blocks: [] }; sections.push(current); }
-      flushBuf();
-      current.blocks.push({ type: "subhead", text: line });
-      list = null;
-      continue;
-    }
-
-    // Top-Heading
-    m = line.match(topRe);
-    if (m) {
-      flushBuf();
-      current = { title: line, blocks: [] };
-      sections.push(current);
-      list = null;
-      continue;
-    }
-
-    // Listenpunkte
-    if (/^[-*•]\s+/.test(line)) {
-      flushBuf();
-      if (!list) {
-        list = { type: "ul", items: [] };
-        if (!current) { current = { title: "Allgemeines", blocks: [] }; sections.push(current); }
-        current.blocks.push(list);
-      }
-      list.items.push(line.replace(/^[-*•]\s+/, ""));
-      continue;
-    }
-
-    // normaler Absatz
-    if (!current) { current = { title: "Allgemeines", blocks: [] }; sections.push(current); }
-    buf.push(line);
-  }
-  flushBuf();
-  return sections;
-}
-
-/* ========== Inline-Renderer ==========
-   - **bold** im Fließtext (grau)
-   - "Label: Text" => Label fett (Sterne im Label entfernt)
-   - **Teilfett** in Überschriften bleibt fett (weiß) */
-function stripMDStrong(s) {
-  return String(s).replace(/\*\*(.*?)\*\*/g, "$1");
-}
-function renderInline(text) {
-  const s = String(text);
-  const m = s.match(/^([^:\n]{1,80}):\s*(.+)$/);
-  if (m) {
-    const clean = stripMDStrong(m[1]);
-    return (
-      <>
-        <strong>{clean}:</strong> {renderInline(m[2])}
-      </>
-    );
-  }
-  const parts = s.split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
-  return parts.map((p, i) =>
-    /^\*\*[^*]+\*\*$/.test(p)
-      ? <strong key={i}>{p.slice(2, -2)}</strong>
-      : <React.Fragment key={i}>{p}</React.Fragment>
-  );
-}
-function renderHeadingInline(text) {
-  const parts = String(text).split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
-  return parts.map((p, i) =>
-    /^\*\*[^*]+\*\*$/.test(p)
-      ? <strong key={i} className="nx2-head-strong">{p.slice(2, -2)}</strong>
-      : <React.Fragment key={i}>{p}</React.Fragment>
-  );
-}
-
-/* ========== Utility Hooks / Icons / Helpers ========== */
 function usePrefersReducedMotion() {
   const [prefers, setPrefers] = useState(false);
   useEffect(() => {
@@ -372,15 +252,7 @@ function usePrefersReducedMotion() {
   return prefers;
 }
 
-function IconUser() {
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
-      <circle cx="12" cy="8" r="4" fill="currentColor" />
-      <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="none" stroke="currentColor" strokeWidth="2" />
-    </svg>
-  );
-}
-
+/* ========== Helpers ========== */
 function formatCurrency(v){
   try { return new Intl.NumberFormat("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(v)||0); }
   catch { return `${v}`; }
@@ -390,7 +262,7 @@ function routeSafe(name, fallback){
   return fallback;
 }
 
-/* ========== Theme / Styles ========== */
+/* ========== Theme / Styles (identisch zu anderen Seiten) ========== */
 const THEME_CSS = `
 :root{
   --h-header:72px;
@@ -400,17 +272,9 @@ const THEME_CSS = `
   --shadow:0 10px 40px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
-
-/* nur Body scrollt (kein Doppel-Scroll) */
 html, body { margin:0; padding:0; overflow-x:hidden; overflow-y:auto; }
-#app{
-  display:block !important;
-  height:auto !important;
-  min-height:0 !important;
-  overflow:visible !important;
-}
+#app{ display:block !important; height:auto !important; min-height:0 !important; overflow:visible !important; }
 
-/* Background */
 body{
   background:
     radial-gradient(1200px 800px at 15% -12%, rgba(212,175,55,.12), transparent 40%),
@@ -420,7 +284,7 @@ body{
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
 }
 
-/* Layout: Sticky Footer ohne Leerscroll */
+/* Layout */
 .nx2-app{ min-height:100svh; display:flex; flex-direction:column; }
 .nx2-page{ flex:1 1 auto; display:flex; flex-direction:column; min-height:0; width:100%; margin:0 auto; padding:0 clamp(8px,2vw,20px) }
 .nx2-main{ flex:1 1 auto; display:flex; flex-direction:column; min-height:0; }
@@ -437,56 +301,30 @@ body{
 .nx2-nav a{ color:var(--text-dim); padding:10px 12px; border-radius:10px; text-decoration:none }
 .nx2-nav a:hover{ color:var(--text); background:#151515 }
 .nx2-actions{ display:flex; gap:10px; align-items:center; justify-self:end }
-
-/* Buttons / Avatar */
 .nx2-btn{ height:42px; padding:0 16px; border-radius:12px; display:inline-flex; align-items:center; gap:10px; border:1px solid transparent; text-decoration:none; font-weight:700; color:var(--text) }
 .nx2-btn-gold{ background:linear-gradient(180deg,#f1d573,#d4af37); color:#1b1b1b; border:none; box-shadow:0 2px 18px rgba(212,175,55,.35) }
 .nx2-btn-gold:hover{ filter:brightness(1.05) }
+.nx2-btn-ghost{ background:transparent; border:1px solid var(--gold); color:var(--gold); }
 .nx2-avatar{ width:36px; height:36px; border-radius:12px; background:#1d1d1d; display:grid; place-items:center; font-weight:800; color:var(--gold); border:1px solid #2a2a2a }
 .nx2-balance-pill{ display:inline-flex; gap:8px; align-items:center; height:40px; padding:0 12px; border-radius:999px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); color:var(--gold) }
 .nx2-coin{ width:18px; height:18px; fill:none; stroke:var(--gold); stroke-width:2 }
 
-/* Mobile Header: iPhone SE etc. */
-@media (max-width: 400px){
-  .nx2-balance-pill{ display:none; }
-  .nx2-btn{ height:36px; padding:0 12px; }
-  .nx2-avatar{ width:32px; height:32px; border-radius:10px; }
-}
-
 /* Page Title */
-.nx2-page-title{
-  max-width: 1000px;
-  margin: 16px auto 10px;
-  padding: 0 clamp(8px,2vw,20px);
-  text-align: center;
-}
+.nx2-page-title{ max-width: 1000px; margin: 16px auto 10px; padding: 0 clamp(8px,2vw,20px); text-align: center; }
 .nx2-title-h1{
-  position: relative;
-  display: inline-block;
-  font-size: clamp(26px,3.2vw,34px);
-  font-weight: 900;
-  letter-spacing: .3px;
-  color: var(--gold);
-  margin: 0;
-  padding-bottom: 10px;
+  position: relative; display: inline-block; font-size: clamp(26px,3.2vw,34px);
+  font-weight: 900; letter-spacing: .3px; color: var(--gold); margin: 0; padding-bottom: 10px;
 }
 .nx2-title-h1::after{
-  content:"";
-  position:absolute; left:50%; transform:translateX(-50%);
+  content:""; position:absolute; left:50%; transform:translateX(-50%);
   bottom:-4px; height:4px; width:88px; border-radius:999px;
-  background: linear-gradient(180deg,#f1d573,#d4af37);
-  opacity:.9;
+  background: linear-gradient(180deg,#f1d573,#d4af37); opacity:.9;
 }
 
-/* Document */
+/* Document + Accordion */
 .nx2-doc{ max-width:1000px; margin:16px auto; padding:0 }
 .nx2-h2{ font-size:22px; line-height:1.25; color:var(--text); font-weight:900 }
-.nx2-h3{ font-size:18px; line-height:1.25; color:var(--text); font-weight:900 }
 .nx2-doc p, .nx2-doc li{ color:var(--text-dim); line-height:1.7 }
-.nx2-ul{ padding-left:20px; margin:8px 0 }
-.nx2-doc p strong, .nx2-doc li strong{ color:#d0d0d0; font-weight:800 }
-
-/* Accordion */
 .nx2-acc{ border:1px solid #2a2a2a; background:#0f0f0f; border-radius:14px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.35); margin:10px 0 }
 .nx2-acc-head{
   width:100%; display:grid; grid-template-columns:1fr 24px; align-items:center;
@@ -495,10 +333,8 @@ body{
 .nx2-acc-caret{ width:20px; height:20px; fill:none; stroke:#bbb; stroke-width:2; transition:transform .2s }
 .nx2-acc.open .nx2-acc-caret{ transform:rotate(180deg) }
 .nx2-acc-body{ max-height:0px; overflow:hidden; }
-@media (prefers-reduced-motion: no-preference){
-  .nx2-acc-body{ transition:max-height .28s ease; }
-}
-.nx2-acc-content{ padding:8px 14px 16px }
+@media (prefers-reduced-motion: no-preference){ .nx2-acc-body{ transition:max-height .28s ease; } }
+.nx2-acc-content{ padding:8px 14px 14px }
 
 /* Footer */
 .nx2-footer{ border-top:1px solid rgba(255,255,255,.08); background:#0d0d0d; padding:26px 8px }
@@ -509,46 +345,5 @@ body{
 @media (min-width:900px){
   .nx2-footer-grid{ grid-template-columns:1fr auto; text-align:left }
   .nx2-footer-links{ justify-content:flex-end; gap:18px }
- }
-
-/* === Gold/Black Scrollbar (global) === */
-/* Firefox (neuer Standard) */
-html{
-  /* Daumen = gold, Track = dunkel */
-  scrollbar-width: thin;
-  scrollbar-color: #d4af37 #0d0d0d; /* thumb track */
 }
-
-/* WebKit (Chrome/Edge/Safari) – global */
-*::-webkit-scrollbar{
-  width: 10px;          /* vertikal */
-  height: 10px;         /* horizontal */
-}
-*::-webkit-scrollbar-track{
-  background:#0d0d0d;           /* dunkler Track */
-  border-radius:999px;
-}
-*::-webkit-scrollbar-thumb{
-  background: linear-gradient(180deg,#f1d573,#d4af37); /* Gold */
-  border-radius:999px;
-  border:2px solid #0d0d0d;     /* dünner Rand, wirkt „eingelassen“ */
-}
-*::-webkit-scrollbar-thumb:hover{
-  filter:brightness(1.05);
-}
-*::-webkit-scrollbar-corner{ background: transparent; }
-
-/* Feintuning für deine horizontalen Scroller (Shelves & Tabs) */
-.nx2-shelf-row::-webkit-scrollbar,
-.nx2-tablist::-webkit-scrollbar{
-  height: 8px; /* etwas schlanker für horizontales Scrollen */
-}
-.nx2-shelf-row{ scrollbar-gutter: stable both-edges; } /* weniger Layout-Shift */
-
-/* Mobile: noch schlanker, damit unaufdringlich */
-@media (pointer:coarse){
-  *::-webkit-scrollbar{ height: 6px; width: 6px; }
-}
-
-
 `;

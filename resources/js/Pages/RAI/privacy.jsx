@@ -6,7 +6,7 @@ import React, {
   useLayoutEffect,
   useId,
 } from "react";
-import agbRaw from "./AGB.txt?raw";
+import agbRaw from "./privacy.txt?raw";
 
 /**
  * AGB.jsx – polished
@@ -82,7 +82,7 @@ export default function AGB({ auth = null }) {
           <span id="agb-top" />
           {/* ===== PAGE TITLE ===== */}
           <section className="nx2-page-title">
-            <h1 className="nx2-title-h1">Terms and Conditions</h1>
+            <h1 className="nx2-title-h1">Privacy Policy</h1>
           </section>
 
           {/* ===== DOKUMENT ===== */}
@@ -90,7 +90,7 @@ export default function AGB({ auth = null }) {
             {sections.map((sec, i) => (
               <Accordion key={i} title={sec.title} defaultOpen={false}>
                 {sec.blocks.map((b, j) => {
-                  if (b.type === "subhead") return <h3 key={j} className="nx2-h3">{b.text}</h3>;
+                  if (b.type === "subhead") return <h3 key={j} className="nx2-h3">{renderHeadingInline(b.text)}</h3>;
                   if (b.type === "ul") {
                     return (
                       <ul key={j} className="nx2-ul">
@@ -289,7 +289,7 @@ function parseByNumbers(raw) {
     if (m) {
       if (!current) { current = { title: `${m[1]}`, blocks: [] }; sections.push(current); }
       flushBuf();
-      current.blocks.push({ type: "subhead", text: line });
+      current.blocks.push({ type: "subhead", text: `${m[1]}.${m[2]} ${m[3]}` });
       list = null;
       continue;
     }

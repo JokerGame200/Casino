@@ -28,8 +28,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // weitere Routen...
 });
 
+
+// Datenschutz und AGB Seiten
 Route::get('/Terms&Conditions', function () {
-    return Inertia::render('RAI/AGB'); // entspricht resources/js/Pages/RAI/AGB.jsx
+    return Inertia::render('RAI/AGB'); 
 })->name('AGB');
+
+Route::get('/privacy-policy', function () {
+    return Inertia::render('RAI/privacy'); 
+})->name('privacy-policy');
+
+Route::get('/FAQ', function () {
+    return Inertia::render('RAI/FAQ'); 
+})->name('FAQ');
+
+Route::get('/Safer-Gambling', function () {
+    return Inertia::render('RAI/Safer-Gambling'); 
+})->name('Safer-Gambling');
 
 require __DIR__.'/auth.php';

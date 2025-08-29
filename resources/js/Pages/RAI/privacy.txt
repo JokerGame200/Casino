@@ -1,0 +1,188 @@
+1. **Introduction**
+By accessing or using **next2win.pro** (the **“Website”**, **“Casino”**, or **“Company”**) and/or by registering an **account**, you acknowledge this **Privacy Policy** and consent to the practices described herein. If you do not agree, do not use the Website or create an **account**.
+
+1.1 **Scope**
+This Policy explains how we collect, use, disclose, transfer, and safeguard **personal data** of Website visitors and **players**.
+
+1.2 **Relationship to Other Terms**
+This Policy forms part of our **Terms & Conditions** and is supplemented by our **Cookie** information. In the event of conflict, this Policy governs **data** matters.
+
+1.3 **Updates**
+We may revise this Policy. Material changes will be posted on the **Website**. Continued use of the Website after changes means you accept the **updated** Policy.
+
+2. **Company and Controller**
+2.1 **Operator**
+The Website is operated by **next2win**, company registration number **XXX**, registered address **XXX** (the **“Controller”** for data protection purposes).
+
+2.2 **Contact**
+For privacy queries or to exercise your rights: **support@next2win.pro**.
+
+2.3 **Representative / DPO**
+If a **Data Protection Officer** or representative is appointed, contact details will be published here: **XXX**.
+
+3. **Personal Data We Collect**
+3.1 **Data You Provide**
+- **Registration & Account** (if available): name, date of birth, email, phone, country, and security credentials.
+- **KYC/Verification** (if applicable): ID documents, **proof of address**, **source of funds**, and similar compliance documents.
+- **Payments** (if enabled): cardholder or wallet details (processed by third-party **payment processors**), deposit/withdrawal records, and billing data.
+- **Support & Communications**: messages, tickets, survey responses, and preferences.
+
+3.2 **Data Collected Automatically**
+- **Device/Usage**: IP address, device type, browser, operating system, timestamps, pages viewed, clickstream, and performance metrics.
+- **Cookies & Similar Technologies**: see section **5**.
+**Note**: If you only browse the Website and do not create an **account**, the primary data we collect is via **cookies** and necessary logs.
+
+3.3 **Data from Third Parties**
+Identity/age verification services, **fraud/AML** providers, payment partners, game providers, and anti-abuse/security vendors may lawfully provide us limited data to meet **compliance** and security needs.
+
+3.4 **Special Categories**
+We do **not** intentionally collect **special category data** (e.g., health, religion). Do not send such data to us.
+
+4. **Purposes and Legal Bases**
+4.1 **Service Delivery (Contract)**
+Create and manage your **account**, enable gameplay, process transactions, provide **support**, and operate core services.
+
+4.2 **Security & Compliance (Legal Obligation / Legitimate Interests)**
+Age verification, **KYC**, **AML/CTF**, fraud and abuse prevention, sanctions screening, self-exclusion, dispute handling, and audit/record-keeping.
+
+4.3 **Marketing (Consent)**
+Send **promotions**, bonuses, and news if you **opt in**. You can withdraw consent at any time (see **6.2**).
+
+4.4 **Analytics & Improvements (Legitimate Interests)**
+Measure performance, debug, improve **UX**, and develop new features using aggregated or **pseudonymized** data.
+
+4.5 **Legal Claims (Legitimate Interests / Legal Obligation)**
+Establish, exercise, or defend **legal** claims; respond to lawful requests.
+
+5. **Cookies and Similar Technologies**
+5.1 **What Cookies Are**
+Small text files stored on your device to keep you signed in, remember settings, secure sessions, and understand usage.
+
+5.2 **Types We Use**
+- **Essential**: security, session, and core functionality.
+- **Functional**: remember preferences (e.g., **language**).
+- **Analytics/Performance**: usage metrics to improve the Website.
+- **Advertising/Affiliate**: measure campaign performance; not for unsolicited third-party marketing.
+
+5.3 **Your Choices**
+You can manage **cookies** in your browser. Blocking **essential** cookies may break key features (e.g., **login**).
+
+5.4 **Cookie List (Examples / Placeholder)**
+- **next2win_session** – **Essential** session cookie (expiry: session) – keeps you logged in.
+- **cookie_consent** – **Functional** (expiry: 6–12 months) – remembers your **cookie** choices.
+- **analytics_id** – **Analytics** (expiry: 6–12 months) – measures site usage. **XXX**
+
+6. **Marketing Communications**
+6.1 **What You May Receive**
+If enabled, we may send **email/SMS/push** about promotions, bonuses, and service updates.
+
+6.2 **Opt-Out**
+You can opt out at any time via **account** settings or by contacting **support@next2win.pro**. Transactional/service messages will still be sent.
+
+6.3 **Publicity of Wins**
+With your **consent** (where required), we may publish first name or **nickname** and win amounts for promotional purposes.
+
+7. **Sharing and Disclosure**
+7.1 **Service Providers (Processors)**
+We share necessary data with vetted vendors (hosting, **payments**, **verification**, analytics, messaging, anti-fraud) under **contractual** confidentiality and security obligations.
+
+7.2 **Group Companies**
+Limited sharing with **affiliates** for support, compliance, and operations on a **need-to-know** basis.
+
+7.3 **Regulators & Law Enforcement**
+We disclose data where **legally** required (e.g., gambling authorities, **AML** units, courts, police).
+
+7.4 **Business Transfers**
+In a **merger**, acquisition, or asset sale, data may transfer to a successor subject to this Policy’s protections.
+
+7.5 **With Your Consent**
+We will share beyond the above only with your **explicit** consent.
+
+8. **International Transfers**
+8.1 **Where Data May Go**
+Your data may be processed or stored outside your **country** or region.
+
+8.2 **Safeguards**
+We use appropriate **safeguards** (e.g., **Standard Contractual Clauses**) to protect data transferred internationally and require recipients to maintain **adequate** protections.
+
+8.3 **Your Acknowledgment**
+By using the **Website**, you understand such transfers may occur in compliance with applicable **laws**.
+
+9. **Data Retention**
+9.1 **General Retention**
+We keep personal data only as long as necessary for the purposes described in this Policy.
+
+9.2 **Legal/AML Retention**
+Certain records may be retained for **minimum legal periods** (e.g., **5** years for AML/CTF where applicable). During this time, data is restricted from non-legal use.
+
+9.3 **Deletion and Anonymization**
+When retention ends, we **erase** or **anonymize** data. Deletion requests will be honored where no overriding **legal** obligations apply.
+
+10. **Security**
+10.1 **Technical and Organizational Measures**
+We use **encryption** (e.g., **TLS/SSL**), firewalls, access controls, and regular **security** reviews.
+
+10.2 **Your Responsibilities**
+Keep your **account** credentials confidential and enable **2FA** (if available). Notify us immediately of any suspected **unauthorized** access.
+
+10.3 **Breach Notification**
+We will notify relevant authorities and affected users of a **data breach** when required by **law**.
+
+11. **Your Rights**
+11.1 **Access**
+Request confirmation whether we process your data and obtain a **copy** of certain data.
+
+11.2 **Rectification**
+Request **correction** of inaccurate or incomplete data.
+
+11.3 **Erasure**
+Request **deletion** of data in circumstances provided by law (“**right to be forgotten**”).
+
+11.4 **Restriction**
+Request **restriction** of processing in certain cases (e.g., while accuracy is verified).
+
+11.5 **Portability**
+Receive certain data in a **structured**, commonly used, **machine-readable** format and request its transfer.
+
+11.6 **Objection**
+Object to processing based on **legitimate interests** and to **direct marketing** at any time.
+
+11.7 **Withdraw Consent**
+Where we rely on **consent**, you may withdraw it at any time without affecting prior lawful processing.
+
+11.8 **Complaint**
+Lodge a complaint with a competent **Data Protection Authority**.
+
+11.9 **How to Exercise**
+Contact **support@next2win.pro**. We may request **identity** verification (e.g., **ID**) to protect your **privacy**.
+
+12. **Third-Party Game Providers**
+12.1 **Provider Policies**
+Some games are supplied by third-party **providers**. Their **privacy** policies may also apply to your gameplay sessions.
+
+12.2 **Examples**
+For example, certain providers may process limited **session** and **game** data to operate titles and ensure fairness. Links to provider policies will be made available where required. **XXX**
+
+13. **Children**
+13.1 **No Underage Use**
+Use of the **Website** is prohibited for persons under the legal gambling **age**. We perform **age** checks where required.
+
+13.2 **Parental Measures**
+Guardians can use **content filters** and device-level controls to limit minors’ access to gambling-related content.
+
+14. **Changes to This Policy**
+14.1 **Notice**
+We may amend this Policy from time to time. Material updates will be posted on the **Website** with an updated **effective date**.
+
+14.2 **Continued Use**
+Your continued use after changes constitutes acceptance of the **revised** Policy.
+
+15. **Contact**
+15.1 **Primary Contact**
+Email: **support@next2win.pro**
+
+15.2 **Registered Details**
+Company registration number: **XXX** — Registered address: **XXX**
+
+15.3 **Effective Date & Version**
+Effective date: **XXX** — Version: **1.0**
