@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useRef } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, Head } from "@inertiajs/react";
 
 /**
  * Next2Win — Dashboard.jsx (v4.9 Inertia Drag + Marquee + Profile)
@@ -70,6 +70,20 @@ export default function Dashboard({ auth = null, games = [], categories = [] }) 
     <div className="nx2-app">
       <div className="nx2-page">
         <main className="nx2-main">
+
+          <Head>
+            <link
+              rel="preload"
+              as="image"
+              imagesrcset="/media/next2win/loyalty/next2win_loyalty_NOPILL_banner_3840x1200.webp 3840w,
+                           /media/next2win/loyalty/next2win_loyalty_NOPILL_banner_3200x1000.webp 3200w,
+                           /media/next2win/loyalty/next2win_loyalty_NOPILL_banner_1920x600.webp 1920w,
+                           /media/next2win/loyalty/next2win_loyalty_NOPILL_banner_1600x500.webp 1600w"
+              imagesizes="100vw"
+              href="/media/next2win/loyalty/next2win_loyalty_NOPILL_banner_1920x600.webp"
+            />
+          </Head>
+
           {/* HEADER */}
           <header className="nx2-header">
             <div className="nx2-header-row">
@@ -139,16 +153,35 @@ export default function Dashboard({ auth = null, games = [], categories = [] }) 
             </div>
           </section>
 
-          {/* HERO */}
+          {/* HERO (Banner) */}
           <section className="nx2-hero nx2-hero--banner">
-            <div className="nx2-hero-banner">
-              <div className="nx2-hero-badge">next2win<span>Up</span></div>
-              <div className="nx2-hero-text">
-                <h1>Treueprogramm</h1>
-                <p>Steige Level um Level auf und sichere dir goldene Belohnungen – ganz ohne Umsatzbedingungen.</p>
-              </div>
-              <div className="nx2-hero-graphic" aria-hidden><RocketIcon /></div>
-            </div>
+            <a
+              href={routeSafe("register", "/register")}
+              className="nx2-hero-banner nx2-hero-banner--image"
+              aria-label="Next2Win – Premium Online Casino"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={[
+                    "/media/next2win/loyalty/next2win_loyalty_NOPILL_banner_3840x1200.webp 3840w",
+                    "/media/next2win/loyalty/next2win_loyalty_NOPILL_banner_3200x1000.webp 3200w",
+                    "/media/next2win/loyalty/next2win_loyalty_NOPILL_banner_1920x600.webp 1920w",
+                    "/media/next2win/loyalty/next2win_loyalty_NOPILL_banner_1600x500.webp 1600w",
+                  ].join(", ")}
+                  sizes="100vw"
+                />
+                <img
+                  src="/media/next2win/loyalty/next2win_loyalty_NOPILL_banner_1920x600.webp"
+                  alt="Next2Win Treueprogramm – Goldene Belohnungen, keine Umsatzbedingungen"
+                  width="1920" height="600"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                  style={{display:"block", width:"100%", height:"auto"}}
+                />
+              </picture>
+            </a>
           </section>
 
           {/* TABS (Drag/Swipe) */}
@@ -657,4 +690,20 @@ html, body { margin:0; padding:0; overflow-x:hidden; overflow-y:auto; }
 .nx2-app{ min-height:100svh; display:flex; flex-direction:column; }
 .nx2-main{ flex:1 1 auto; display:flex; flex-direction:column; min-height:0; }
 .nx2-footer{ margin-top:auto; }
+
+/* Hero: Bild-Banner */
+.nx2-hero-banner--image{ padding:0; display:block; background:#0f0f0f }
+.nx2-hero-banner--image img{ display:block; width:100%; height:auto }
+
+/* Promo-Banner Höhe (responsive) */
+.nx2-hero--banner .nx2-hero-banner--image { min-height: clamp(160px, 44vw, 240px); }
+@media (min-width: 640px){
+  .nx2-hero--banner .nx2-hero-banner--image { min-height: clamp(220px, 28vw, 320px); }
+}
+@media (min-width: 1100px){
+  .nx2-hero--banner .nx2-hero-banner--image { min-height: clamp(280px, 22vw, 420px); }
+}
+
+
+
 `;
